@@ -1,30 +1,43 @@
 const mongoose = require ('mongoose')
 
 const itemSchema = new mongoose.Schema({
-    name:{
-        type: String,
-        required: true
-    },
-    barcode:{
-        type: Number,
-        required: true
-    },
-    size:{
-        haight:{type: Number, required:true},
-        wieth:{type: Number, required:true},
-        depth:{type: Number, required:true},
-        doors:{type: Number, required:true},
-        matetials:{type: String, required:true},
-    },
-    style:{handle:{type: String, required:true},
-            color:{type: Number, required:true},
-            base:{type: String, required:true , enum:["zokel","legs"]},
-
-    }
-        
-
+    name: "Product A",
+    styling: [
+        {
+            interior: {
+                color: "Red",
+                shelves: { amount: 3 },
+                drawers: { amount: 2 },
+                accessories: {
+                    handles: {
+                        itemNumber: 123,
+                        color: "Silver",
+                        style: "Modern",
+                        img: "🪵"
+                    }
+                }
+            }
+        },
+        {
+            exterior: {
+                material: "Wood",
+                size: { height: 180, width: 120, depth: 50 },
+                color: "Brown"
+            }
+        }
+    ]
     
+
 })
+
+
+
+
+
+
+
+
+
 
 const itemModel = mongoose.model("item", itemSchema)
 
