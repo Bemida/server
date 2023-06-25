@@ -9,12 +9,14 @@ async function create(data){
 async function read(filter = {}){
 await orderModel.find(filter)
 }
+async function readOne(filter = {}){
+    await orderModel.findOne(filter)
+}
 async function update(){
 return await orderModel.updateOne()
 }
 async function del(){
     return await orderModel.updateOne()
-
 }
 
 module.exports={create,read,update,del}
