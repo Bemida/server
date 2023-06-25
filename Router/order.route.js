@@ -1,18 +1,26 @@
-//This is where we build the routes to accept API requests - POST, GET, PUT, DELETE
-
 const express = require ('express')
 const router = express.Router()
 
-const orderServices = require ('../Bl/template.services')
+const orderServices = require ('../BL/order.services')
 
-//Sample function using GET:
 
 router.get ("/", async (req,res)=>{
     try{
-
+        const order = await orderServices.getOrderById(req.body)
+        res.send(order)
     }
     catch (err){
         res.status(400).send(err)
+    }
+})
+
+router.post('/addorder',async (req,res)=>{
+    try{
+        const order = await orderServices.addOrder(req.body)
+        res.status(200).send(order)
+    }
+    catch(err){
+        res.status(999).send(err)
     }
 })
 

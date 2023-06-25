@@ -19,4 +19,4 @@ async function del(){
     return await orderModel.updateOne()
 }
 
-module.exports={create,read,update,del}
+module.exports={create,read,readOne,update,del}
