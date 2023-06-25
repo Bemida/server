@@ -6,7 +6,7 @@ const orderServices = require ('../BL/order.services')
 
 router.get ("/", async (req,res)=>{
     try{
-        const order = await orderServices.getOrderById(req.body)
+        const order = await orderServices.getOrderById(req.body.id)
         res.send(order)
     }
     catch (err){

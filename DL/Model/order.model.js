@@ -24,7 +24,7 @@ const orderSchema = new mongoose.Schema({
             stageNo : {
                 type : Number,
                 default : 1 ,
-                enum : [1,2,3,4]
+                enum : [1,2,3,4,5]
             },
             furniture : {
                 type : String,
