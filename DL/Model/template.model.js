@@ -2,8 +2,8 @@ const mongoose = require ('mongoose')
 
 const templateSchema = new mongoose.Schema({
     sample:{
-        type: SAMPLE,
-        required: 'MAYBE?'
+        type: String,
+        required: true
     }
 })
 

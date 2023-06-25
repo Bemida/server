@@ -1,22 +1,17 @@
-require ('dotenv').config()
+require('dotenv').config()
+require('./DL/db').connect()
+const cors = require('cors')
+const mainRouter = require("./Config/mainRoutes")
 
-require ('./DL/db').connect()
+const express = require('express'),
+    app = express(),
+    port = process.env.PORT  || 5000
 
-const express = require ('express')
+app.use(express.json())
+app.use(cors())
 
-const app = express()
+app.use("/", mainRouter)
 
-app.use (express.json())
-
-const cors = require ('cors')
-app.use (cors())
-
-const port = process.env.PORT
-
-//Here you'll import your mainRoutes
-
-
-
-app.listen(port,()=>{
-    console.log ('Server is up 🖥️')
+app.listen(port, () => {
+    console.log('Server is up 🖥️')
 })

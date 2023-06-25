@@ -1,10 +1,10 @@
 //This is where you'll define the main route for ALL of the different entities (ישויות)
+const express = require("express")
+const router = express.Router()
 
-//For example:
 
-const express = require ('express')
-const app = express()
+router.use ('/template1', require ('../Router/template.route'))
+// router.use ('/template2', require ('../Router/template.route'))
+// router.use ('/template3', require ('../Router/template.route'))
 
-app.use ('/template1', require ('../Router/template.route'))
-app.use ('/template2', require ('../Router/template.route'))
-app.use ('/template3', require ('../Router/template.route'))
+module.exports = router;
