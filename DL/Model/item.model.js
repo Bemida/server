@@ -12,6 +12,7 @@ const itemSchema = new mongoose.Schema({
     },
     img: {
         type: String,
+
         required: true
     },
     stock: {
@@ -22,6 +23,14 @@ const itemSchema = new mongoose.Schema({
         type:Number,
         required:true,
         unique: true
+
+        url: "🏵️",
+        required: true
+    },
+    stock: {
+        type: Number,
+        default: 1
+
     }
 })
 
