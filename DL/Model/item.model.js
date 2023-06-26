@@ -4,15 +4,24 @@ const itemSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
+        
+    },
+    price: {
+        type: Number,
+        required: true
     },
     img: {
         type: String,
-        url: "🏵️",
         required: true
     },
     stock: {
-        type: Number,
-        default: 1
+        type : Number,
+        default : 1
+    },
+    barcode: {
+        type:Number,
+        required:true,
+        unique: true
     }
 })
 
