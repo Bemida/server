@@ -1,54 +1,54 @@
-const mongoose = require ('mongoose')
+const mongoose = require('mongoose')
 
 const orderSchema = new mongoose.Schema({
     user: {
         type: String,
         required: false // for the moment
     },
-    status : {
-        type : String,
-        default : "in_progress",
-        enum : ["in_progress","confirmed"]
+    status: {
+        type: String,
+        default: "in_progress",
+        enum: ["in_progress", "confirmed"]
     },
-    date : {
-        type : Date,
-        default : Date.now
+    date: {
+        type: Date,
+        default: Date.now
     },
-    shipping : {
-        type : String,
-        default : "regular",
-        enum : ["regular","express"]
+    shipping: {
+        type: String,
+        default: "regular",
+        enum: ["regular", "express"]
     },
-    stages : [{
-        stage : [{
-            stageNo : {
-                type : Number,
-                default : 1 ,
-                enum : [1,2,3,4,5]
+    stages: [{
+        stage: [{
+            stageNo: {
+                type: Number,
+                default: 1,
+                enum: [1, 2, 3, 4]
             },
-            furniture : {
-                type : String,
-                enum : ["Closet","Bed","Bookcase","Table","Console","Drawers"],
-                default : "Closet"
+            furniture: {
+                type: String,
+                enum: ["Closet", "Bed", "Bookcase", "Table", "Console", "Drawers"],
+                default: "Closet"
             },
-            items : [{
+            items: [{
                 item: {
-                    name : String,
-                    itemId : String,
-                    amount : Number,
-                    img : "url",
-                    price : Number
+                    name: String,
+                    itemId: String,
+                    amount: Number,
+                    img: "String",
+                    price: Number
                 }
             }]
         }]
     }],
     total: {
-        type : Number,
-        default : 0
+        type: Number,
+        default: 0
     },
-    isActive : {
-        type : Boolean,
-        default : true
+    isActive: {
+        type: Boolean,
+        default: true
     }
 })
 
