@@ -4,10 +4,11 @@ const itemSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
+        
     },
     img: {
-        url: "🏵️",
-        required : true
+        type: String,
+        required: true
     },
     stock: {
         type : Number,

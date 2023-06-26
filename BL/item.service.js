@@ -17,3 +17,14 @@ async function addItem (data){
 
 module.exports = {getItem,addItem}
 
+const item1 = {
+  "name": "door handle",
+  "img": "🚪",
+  "stock": "50"
+
+}
+const go = async ()=>{
+  let item = await addItem(item1)
+  console.log (item)
+}
+go()

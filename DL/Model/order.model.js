@@ -71,7 +71,7 @@ const orderSchema = new mongoose.Schema({
                             itemNumber: Number,
                             color: String,
                             style: String,
-                            img: "🪵"
+                            img: String
                         }
                     }
 
