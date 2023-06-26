@@ -16,6 +16,19 @@ const itemServices = require ('../Bl/item.service')
 //         res.status(400).send(err)
 //     }
 // })
+
+router.get ("/allitems", async (req,res)=>{
+    try{
+       const item = await itemServices.getAllItems()
+       res.send (item)
+
+
+    }
+    catch (err){
+        res.status(400).send(err)
+    }
+})
+
 router.get ("/:barcode", async (req,res)=>{
     try{
        const item = await itemServices.getItemByBarcode(req.params.barcode)
@@ -27,6 +40,7 @@ router.get ("/:barcode", async (req,res)=>{
         res.status(400).send(err)
     }
 })
+
 router.post ("/additem", async (req,res)=>{
     try{
     

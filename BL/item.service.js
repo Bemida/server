@@ -12,6 +12,14 @@ async function getItemByBarcode (barcode){
   let item = itemController.readOne({barcode:barcode})
   return item
 }
+async function getAllItems(){
+  let items = itemController.read()
+  return items
+}
+async function getItemByBarcode (barcode){
+  let item = itemController.readOne({barcode:barcode})
+  return item
+}
 
 async function addItem (data){
   let item = await getItemByBarcode(data.barcode)
@@ -24,7 +32,7 @@ async function addItem (data){
   return item 
 }
 
-module.exports = {addItem,getItemByBarcode}
+module.exports = {addItem,getItemByBarcode,getAllItems}
 
 // const item1 = {
 //   "name": "door handle",
