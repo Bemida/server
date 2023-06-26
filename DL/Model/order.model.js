@@ -113,7 +113,57 @@ const orderSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
+
     
+
+    styling: [{
+        interior: {
+            color: { type: String, required: true },
+            shelves: {
+                amount: Number,
+                position: {
+                    enum: ["right", "left", "center"]
+                },
+                hangingRod: {
+                    amount: Number,
+                    position: {
+                        enum: ["right", "left", "center"]
+                    }
+
+                },
+                drawers: { amount: Number },
+                acessories: {
+                    drawerHandles: {
+                        itemNumber: Number,
+                        color: String,
+                        style: String,
+                        img: String
+                    }
+                }
+
+            }
+        }
+    },
+    {
+        exterior: {
+            material: { type: String, required: true },
+            doors: { amount: Number },
+            size: { height: Number, width: Number, depth: Number },
+            color: { type: String, required: true },
+            handles: {
+                itemNumber: Number,
+                color: String,
+                style: String,
+                img: String
+            },
+            base: {
+                default: "legs",
+                enum: ["legs", "tzokel"]
+            }
+
+        }
+    }]
+
 })
 
 const orderModel = mongoose.model("order", orderSchema)

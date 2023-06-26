@@ -12,6 +12,7 @@ const itemSchema = new mongoose.Schema({
     },
     img: {
         type: String,
+
         required: true
     },
     stock: {
@@ -21,7 +22,12 @@ const itemSchema = new mongoose.Schema({
     barcode: {
         type:Number,
         required:true,
-        unique: true
+        unique: true,
+    },
+    stock: {
+        type: Number,
+        default: 1
+
     }
 })
 
