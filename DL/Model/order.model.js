@@ -75,31 +75,4 @@ const orderSchema = new mongoose.Schema({
     }
 });
 
-const orderModel = mongoose.model("order", orderSchema);
-
-            }
-        }
-    },
-    {
-        exterior: {
-            material: { type: String, required: true },
-            doors: { amount: Number },
-            size: { height: Number, width: Number, depth: Number },
-            color: { type: String, required: true },
-            handles: {
-                itemNumber: Number,
-                color: String,
-                style: String,
-                img: String
-            },
-            base: {
-                default: "legs",
-                enum: ["legs", "tzokel"]
-            }
-
-        }
-    }]
->>>>>>>>> Temporary merge branch 2
-})
-
 const orderModel = mongoose.model("order", orderSchema)
