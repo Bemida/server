@@ -19,7 +19,7 @@ async function addItem (data){
   if (data.price < 0) throw "price must be at least 1"
   if (!data.name) throw "item must include a name"
   if (!data.img) throw "item must include an image"
-  // if (!data.barcode || (/^[A-Za-z]*$/).test(data.barcode)) throw "item must include unique barcode with numbers only"
+  if (!data.barcode) throw "item must include unique barcode with numbers only"
   item = itemController.create(data)
   return item 
 }
