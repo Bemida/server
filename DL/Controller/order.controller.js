@@ -10,7 +10,7 @@ async function read(filter = {}){
 await orderModel.find(filter)
 }
 async function readOne(filter = {}){
-    await orderModel.findOne(filter)
+    return await orderModel.findOne(filter)
 }
 async function update(){
 return await orderModel.updateOne()
