@@ -6,12 +6,13 @@ const itemSchema = new mongoose.Schema({
         required: true
     },
     img: {
+        type: String,
         url: "🏵️",
-        required : true
+        required: true
     },
     stock: {
-        type : Number,
-        default : 1
+        type: Number,
+        default: 1
     }
 })
 

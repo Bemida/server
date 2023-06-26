@@ -53,32 +53,32 @@ const orderSchema = new mongoose.Schema({
     styling: [{
         interior: {
             color: { type: String, required: true },
-                shelves: {
+            shelves: {
+                amount: Number,
+                position: {
+                    enum: ["right", "left", "center"]
+                },
+                hangingRod: {
                     amount: Number,
                     position: {
                         enum: ["right", "left", "center"]
-                    },
-                    hangingRod: {
-                        amount: Number,
-                        position: {
-                            enum: ["right", "left", "center"]
-                        }
-
-                    },
-                    drawers: { amount: Number },
-                    acessories: {
-                        drawerHandles: {
-                            itemNumber: Number,
-                            color: String,
-                            style: String,
-                            img: "🪵"
-                        }
                     }
 
+                },
+                drawers: { amount: Number },
+                acessories: {
+                    drawerHandles: {
+                        itemNumber: Number,
+                        color: String,
+                        style: String,
+                        img: String
+                    }
                 }
+
             }
-        },
-        {
+        }
+    },
+    {
         exterior: {
             material: { type: String, required: true },
             doors: { amount: Number },
@@ -88,7 +88,7 @@ const orderSchema = new mongoose.Schema({
                 itemNumber: Number,
                 color: String,
                 style: String,
-                img: "🪵"
+                img: String
             },
             base: {
                 default: "legs",
