@@ -5,9 +5,20 @@ const itemServices = require ('../Bl/item.service')
 
 //Sample function using GET:
 
-router.get ("/:id", async (req,res)=>{
+// router.get ("/:id", async (req,res)=>{
+//     try{
+//        const item = await itemServices.getItem(req.params.id)
+//        res.send (item)
+
+
+//     }
+//     catch (err){
+//         res.status(400).send(err)
+//     }
+// })
+router.get ("/:barcode", async (req,res)=>{
     try{
-       const item = await itemServices.getItem(req.params.id)
+       const item = await itemServices.getItemByBarcode(req.params.barcode)
        res.send (item)
 
 
@@ -18,7 +29,7 @@ router.get ("/:id", async (req,res)=>{
 })
 router.post ("/additem", async (req,res)=>{
     try{
-        console.log ("hello")
+    
        const item = await itemServices.addItem(req.body)
        res.send(item)
 
