@@ -1,6 +1,6 @@
 const emailServices = require ('../BL/email.services')
 
-router.post("/mail1", async(req,res)=>{
+router.post("/sendemail", async(req,res)=>{
     const fakeData = req.body
     // const fakeData={email:"yosef74526@gmail.com",title:"yooo",html:'<h1>goooo <h2>nnnnnn</h2></h1>'}
     try{
