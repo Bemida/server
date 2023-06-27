@@ -1,11 +1,25 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
+<<<<<<< HEAD
     user: {
         name : String,
         phone : Number,
         email : String,
         // required: false // for the moment
+=======
+    userName: {
+        type: String,
+        required: true
+    },
+    userPhone: {
+        type: Number,
+        required: true
+    },
+    userEmail: {
+        type: String,
+        required: true
+>>>>>>> a0ef553d01c5df423e39bf9898fc30c51684e661
     },
     status: {
         type: String,
@@ -26,47 +40,76 @@ const orderSchema = new mongoose.Schema({
         enum: ["Closet", "Bed", "Bookcase", "Table", "Console", "Drawers"],
         default: "Closet"
     },
-    interiorStyle: {
-        color: { type: String, required: true },
+    section1: {
         shelves: {
-            amount: Number,
-            section: Number,
-            positions: []
+            type: Number,
+            default: 0
         },
         hangingRod: {
-            amount: Number,
-            section: Number,
-            positions: []
+            type: Number,
+            default: 0
         },
         drawers: {
-            amount: Number,
-            section: Number,
-            positions: []
-        },
-        drawerHandles: {
-            itemNumber: Number,
-            color: String,
-            style: String,
-            img: String
+            type: Number,
+            default: 0
+
         }
     },
-    exteriorStyle: {
-        material: { type: String, required: true },
-        doors: { amount: Number },
-        size: { height: Number, width: Number, depth: Number },
-        color: { type: String, required: true },
-        handles: {
-            itemNumber: Number,
-            color: String,
-            style: String,
-            img: String
+    section2: {
+        shelves: {
+            type: Number,
+            default: 0
         },
-        base: {
-            type: String,
-            default: "legs",
-            enum: ["legs", "tzokel"]
+        hangingRod: {
+            type: Number,
+            default: 0
+        },
+        drawers: {
+            type: Number,
+            default: 0
         }
     },
+
+    material: {
+        type: String,
+        enum: ["wood", "pine", "mdf"],
+        default: "wood"
+    },
+    doors: {
+        type: Number,
+        default: 0
+    },
+    height: {
+        type: Number,
+        default: 0
+    },
+    width: {
+        type: Number,
+        default: 0
+    },
+    depth: {
+        type: Number,
+        default: 0
+    },
+    color: {
+        type: String,
+        enum: ["white", "oak", "brown", "black", "cream", "red"],
+        default: "white"
+    },
+    handleId: {
+        type: String
+        //type: mongo object
+    },
+    stageNo: {
+        type: Number,
+        default: 1
+    },
+    base: {
+        type: String,
+        default: "legs",
+        enum: ["legs", "tzokel"]
+    }
+    ,
     total: {
         type: Number,
         default: 0

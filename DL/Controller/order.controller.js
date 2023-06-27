@@ -12,8 +12,8 @@ await orderModel.find(filter)
 async function readOne(filter = {}){
     return await orderModel.findOne(filter)
 }
-async function update(){
-return await orderModel.updateOne()
+async function update(filter,data){
+return await orderModel.updateOne(filter,data)
 }
 async function del(){
     return await orderModel.updateOne()
