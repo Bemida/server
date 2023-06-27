@@ -1,20 +1,19 @@
-const templateModel = require ('../Model/template.model')
+const userModel = require('../Model/template.model')
 
-//This is where you'll write your CRUD functions for the database - Create, Read, Update, Delete
-
-
-async function create(data){
-    return await templateModel.create(data)
+async function create(data) {
+    return await userModel.create(...data)
 }
-async function read(filter = {}){
-await templateModel.find(filter)
+async function readOne(filter = {}, projection) {
+    await userModel.findOne({ ...filter, isActive: true }, projection)
 }
-async function update(){
-return await templateModel.updateOne()
+async function readMany(filter = {}) {
+    await userModel.find(filter, { isActive: true })
 }
-async function del(){
-    return await templateModel.updateOne()
+async function update(email, data) {
+    return await userModel.updateOne(email, { ...data })
+}
+async function del(email) {
+    return await userModel.updateOne(email, { isActive: false })
+}
 
-}
-
-module.exports={create,read,update,del}
+module.exports = { create, readOne, readMany, update, del }
