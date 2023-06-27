@@ -1,7 +1,7 @@
 const express = require ('express')
 const router = express.Router()
 
-const itemServices = require ('../Bl/item.service')
+const itemServices = require ('../BL/item.service')
 
 //Sample function using GET:
 
@@ -57,32 +57,3 @@ router.post ("/additem", async (req,res)=>{
 
 
 module.exports = router
-// creator -yosefsch
-const nodemailer= require('nodemailer')
-let trensporter= nodemailer.createTransport({
-    service:"gmail",
-    auth:{
-        user:"yosef74526@gmail.com",
-        pass:process.env.EMAIL_PASS
-    }
-})
-const mailOptions={
-    from:"yosef74526@gmail.com",
-    to:"yosef74526@gmail.com",
-    subject:"try to send",
-    text:"try to send email to yosef74526@gmail.com"
-}
-router.get ("/mail1", async (req,res)=>{
-    // res.send("good")
-    trensporter.sendMail(mailOptions,(err,info)=>{
-        if(err){console.log(err)}
-        else{res.send("email send"+info.response)}
-        // console.log("goog 2")
-    })
-})
-
-
-
-
-
-
