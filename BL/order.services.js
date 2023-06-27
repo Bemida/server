@@ -18,8 +18,13 @@ async function addOrder (data){
   return order
 }
 
+async function updateOrder (orderId){
+  if (!orderId) throw "missing order id for the search"
+  let order = await orderController.update({_id:orderId})
+  return order
+}
 
-module.exports = {getOrder,addOrder}
+module.exports = {getOrder,addOrder,updateOrder}
 
 
 

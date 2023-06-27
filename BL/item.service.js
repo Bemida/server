@@ -9,16 +9,26 @@ const itemController = require ('../DL/Controller/item.controller')
 //   return item
 // }
 async function getItemByBarcode (barcode){
-  let item = itemController.readOne({barcode:barcode})
+  let item = await itemController.readOne({barcode:barcode})
   return item
 }
 async function getAllItems(){
-  let items = itemController.read()
+  let items = await itemController.read()
   return items
 }
 async function getItemByBarcode (barcode){
-  let item = itemController.readOne({barcode:barcode})
+  let item = await itemController.readOne({barcode:barcode})
   return item
+}
+async function updateItem (barcode,data){
+  console.log(barcode + data)
+  if (!barcode) throw "Missing barcode"
+  let item = await itemController.readOne({barcode:barcode})
+  if (!item) throw "Item doesn't exist"
+  if (!data.name && !data.price && !data.stock && !data.img) throw "missing or incorrect data"
+  item = await itemController.update({barcode:barcode}, data)
+  let updatedItem = await itemController.readOne({barcode:barcode})
+  return updatedItem
 }
 
 async function addItem (data){
@@ -28,11 +38,11 @@ async function addItem (data){
   if (!data.name) throw "item must include a name"
   if (!data.img) throw "item must include an image"
   if (!data.barcode) throw "item must include unique barcode with numbers only"
-  item = itemController.create(data)
+  item = await itemController.create(data)
   return item 
 }
 
-module.exports = {addItem,getItemByBarcode,getAllItems}
+module.exports = {addItem,getItemByBarcode,getAllItems,updateItem}
 
 // const item1 = {
 //   "name": "door handle",
