@@ -1,19 +1,50 @@
-//This is where we build the routes to accept API requests - POST, GET, PUT, DELETE
+const express = require('express'),
+    router = express.Router(),
+    userServices = require('../Bl/template.services');
 
-const express = require ('express')
-const router = express.Router()
-
-const templateServices = require ('../Bl/template.services')
-
-//Sample function using GET:
-
-router.get ("/", async (req,res)=>{
-    try{
-
+router.get("/", async (req, res) => {
+    try {
+        const result = await userServices.getAllUsers(req.body);
+        res.send(result);
+    } catch (error) {
+        res.status(error.code || 402).send(error.msg || error);
     }
-    catch (err){
-        res.status(400).send(err)
+});
+
+router.get("/user", async (req, res) => {
+    try {
+        const result = await userServices.getUser(req.body);
+        res.send(result);
+    } catch (error) {
+        res.status(error.code || 402).send(error.msg || error);
     }
-})
+});
+
+router.post("/register", async (req, res) => {
+    try {
+        const result = await userServices.authenticateUser(req.body);
+        res.send(result);
+    } catch (error) {
+        res.status(error.code || 402).send(error.msg || error);
+    }
+});
+
+router.post("/login", async (req, res) => {
+    try {
+        const result = await userServices.login(req.body);
+        res.send(result);
+    } catch (error) {
+        res.status(error.code || 402).send(error.msg || error);
+    }
+});
+
+router.post('/changepassword', async (req, res) => {
+    try {
+        const result = await userServices.changePassword(req.body);
+        res.send(result);
+    } catch (error) {
+        res.status(error.code || 402).send(error.msg || error);
+    }
+});
 
 module.exports = router
