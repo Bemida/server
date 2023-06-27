@@ -12,9 +12,8 @@ async function readMany(filter = {}) {
 async function update(email, data) {
     return await userModel.updateOne(email, { ...data })
 }
-async function del(){
-    return await templateModel.updateOne()
-
+async function del() {
+    return await userModel.updateOne(email, { isActive: false })
 }
 
-module.exports={create,read,update,del}
+module.exports = { create, readOne, readMany, update, del }

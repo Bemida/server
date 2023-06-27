@@ -1,18 +1,7 @@
-const userController = require('../DL/Controller/user.controller')
-const auth = require('../Config/auth/auth')
-const bcrypt = require('bcrypt')
-const SALT_ROUNDS= Number(process.env.SALT_ROUNDS)
-
-//This is where you'll write your business logic functions - all API layer functions for registering, logging in, searching, etc. 
-
-//Don't forget to import your authentication! We'll be generating tokens for users here. 
-
-//Don't forget our password hashing! We'll use it to encrypt passwords when registering, as well as check passwords when logging in.
-
-async function sampleFunction() {
-  //for example:  let sample = await templateController.readOne({something:something})
-  // return sample
-}
+const userController = require('../DL/Controller/user.controller'),
+  auth = require('../Config/auth/auth'),
+  bcrypt = require('bcrypt'),
+  SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
 
 const validateUserData = (newData) => {
   newData.foreach((value) => {
@@ -30,7 +19,7 @@ const validateUserData = (newData) => {
 };
 
 
-const register = async (data)=> {
+const register = async (data) => {
   const { fullName, email, password } = data;
   validateUserData([fullName, email, password])
   const emailProper = await userController.readUser({ email: email });
@@ -50,7 +39,7 @@ const login = async (data) => {
       throw { code: 400, msg: "email not found" };
     }
     const user = await userController.readUser({ email: data.email }, "+password");
-  
+
     if (!user) {
       throw { code: 400, msg: "user not found" };
     }
@@ -68,7 +57,7 @@ const login = async (data) => {
 
 
 
-module.exports = {register, login }
+module.exports = { register, login }
 
 
 

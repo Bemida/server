@@ -1,6 +1,6 @@
 const express = require('express'),
     router = express.Router(),
-    userServices = require('../Bl/template.services');
+    userServices = require('../Bl/user.services');
 
 router.get("/", async (req, res) => {
     try {
