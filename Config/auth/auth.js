@@ -1,12 +1,19 @@
 const jwt = require('jsonwebtoken')
 
-//Check out the .env file to find your SECRET.
-
-async function createToken(/*PARAMETER*/){
-return //use JWT built in functions to generate tokens
-}
-async function verify(/*PARAMETER*/){
-    return //use JWT built in functions to verify tokens
+async function createToken(data) {
+    return jwt.sign(data, process.env.SECRET, { expiresIn: "2m" })
 }
 
-module.exports = {createToken,verify}
+async function verify(req, res, next) {
+    try {
+        const token = req.headers.authorization.split("Bearer ")[1]
+        const email = jwt.verify(token, process.env.SECRET).email
+        console.log(token);
+        
+        next()
+    }
+    catch (err) {
+        res.sendStatus(401)
+    }
+}
+module.exports = { createToken, verify }
