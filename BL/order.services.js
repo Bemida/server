@@ -1,7 +1,7 @@
 const orderController = require ('../DL/Controller/order.controller')
 
 const auth = require('../Config/auth/auth')
-const bcrypt = require ('bcrypt')
+// const bcrypt = require ('bcrypt')
 
 async function getOrder (orderId){
   let order = await orderController.readOne({_id:orderId})

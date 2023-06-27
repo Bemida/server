@@ -6,7 +6,7 @@ const templateController = require ('../DL/Controller/template.controller')
 const auth = require('../Config/auth/auth')
 
 //Don't forget our password hashing! We'll use it to encrypt passwords when registering, as well as check passwords when logging in.
-const bcrypt = require ('bcrypt')
+// const bcrypt = require ('bcrypt')
 
 async function sampleFunction (){
   //for example:  let sample = await templateController.readOne({something:something})
