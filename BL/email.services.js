@@ -28,7 +28,6 @@ async function sendOrderEmail(email,subject,html){
             console.log("goog 2")
         })
 }
-// sendOrderEmail(fakeOrderData)
 
 module.exports = {sendOrderEmail}
 
