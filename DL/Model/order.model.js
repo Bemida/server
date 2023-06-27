@@ -34,32 +34,32 @@ const orderSchema = new mongoose.Schema({
     },
     section1: {
         shelves: {
-            amount: Number,
+            type: Number,
             default: 0
         },
         hangingRod: {
-            amount: Number,
+            type: Number,
             default: 0
         },
         drawers: {
-            amount: Number,
+            type: Number,
             default: 0
 
         }
     },
     section2: {
         shelves: {
-            amount: Number,
+            type: Number,
             default: 0
         },
         hangingRod: {
-            amount: Number,
+            type: Number,
             default: 0
         },
         drawers: {
-            amount: Number,
+            type: Number,
             default: 0
-        }   
+        }
     },
 
     material: {
