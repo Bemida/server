@@ -1,13 +1,6 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-<<<<<<< HEAD
-    user: {
-        name : String,
-        phone : Number,
-        email : String,
-        // required: false // for the moment
-=======
     userName: {
         type: String,
         required: true
@@ -19,7 +12,6 @@ const orderSchema = new mongoose.Schema({
     userEmail: {
         type: String,
         required: true
->>>>>>> a0ef553d01c5df423e39bf9898fc30c51684e661
     },
     status: {
         type: String,

@@ -1,6 +1,7 @@
 const nodemailer= require('nodemailer')
 
 // creator -yosefsch
+// account to email
 let trensporter= nodemailer.createTransport({
     service:"gmail",
     auth:{
@@ -8,12 +9,7 @@ let trensporter= nodemailer.createTransport({
         pass:process.env.EMAIL_PASS
     }
 })
-// const mailOptions={
-//     from:"yosef74526@gmail.com",
-//     to:"yosef74526@gmail.com",
-//     subject:"try to send",
-//     text:"try to send email to yosef74526@gmail.com"
-// }
+
 //need email address, subject=title of the email, html=component with all data end css
 async function sendOrderEmail(email,subject,html){
     const mailOptions={
@@ -22,7 +18,7 @@ async function sendOrderEmail(email,subject,html){
         subject:subject,
         html:html
     }
-     trensporter.sendMail(mailOptions,(err,info)=>{
+    return trensporter.sendMail(mailOptions,(err,info)=>{
             if(err){console.log(err)}
             else{res.send("email send"+info.response)}
             console.log("goog 2")

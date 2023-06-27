@@ -5,6 +5,6 @@ const router = express.Router()
 
 router.use('/api/orders', require('../Router/order.route'))
 router.use ('/api/items', require ('../Router/items.route'))
-// router.use ('/template3', require ('../Router/template.route'))
+router.use ('/api/others', require ('../Router/others.route'))//creator:yosef sch
 
 module.exports = router;
