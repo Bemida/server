@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
     user: {
-        type: String,
+        name : String,
+        phone : Number,
+        email : String,
         required: false // for the moment
     },
     status: {
@@ -76,3 +78,5 @@ const orderSchema = new mongoose.Schema({
 });
 
 const orderModel = mongoose.model("order", orderSchema)
+
+module.exports = orderModel

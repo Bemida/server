@@ -4,9 +4,9 @@ const router = express.Router()
 const orderServices = require ('../BL/order.services')
 
 
-router.get ("/", async (req,res)=>{
+router.get ("/:id", async (req,res)=>{
     try{
-        const order = await orderServices.getOrderById(req.body.id)
+        const order = await orderServices.getOrder(req.params.id)
         res.send(order)
     }
     catch (err){
