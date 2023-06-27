@@ -19,7 +19,7 @@ router.get ("/allitems", async (req,res)=>{
     }
 })
 
-router.get ("/:barcode", async (req,res)=>{
+router.get ("/barcode/:barcode", async (req,res)=>{
     try{
         const item = await itemServices.getItemByBarcode(req.params.barcode)
         res.send (item)

@@ -1,27 +1,20 @@
-const userModel = require("../model/user.model");
+const userModel = require('../Model/template.model')
 
-function createUser(data) {
-  return userModel.create({ ...data });
+async function create(data) {
+    return await userModel.create(...data)
 }
-function readUsers(filter = {}) {
-  return userModel.find({ ...filter, isActive: true });
+async function readOne(filter = {}, projection) {
+    await userModel.findOne({ ...filter, isActive: true }, projection)
 }
-function readUser(filter, projection) {
-  return userModel.findOne(filter, projection);
+async function readMany(filter = {}) {
+    await userModel.find(filter, { isActive: true })
 }
-function updateUserByEmail(email, object) {
-  return userModel.updateOne(email, {
-    ...object,
-    lastConnectedDate: new Date(),
-  });
+async function update(email, data) {
+    return await userModel.updateOne(email, { ...data })
 }
-function deactivateUser(email) {
-  return updateUserByEmail(email, { isActive: false });
+async function del(){
+    return await templateModel.updateOne()
+
 }
-module.exports = {
-  createUser,
-  readUsers,
-  readUser,
-  updateUserByEmail,
-  deactivateUser,
-};
+
+module.exports={create,read,update,del}
