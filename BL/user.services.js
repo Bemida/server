@@ -6,18 +6,17 @@ const userController = require('../DL/Controller/user.controller'),
 const validateUserData = (newData) => {
   newData.foreach((value) => {
     if ("fullName" in value && typeof newData.value !== "string")
-      return "Invalid name";
+      throw "Invalid name";
     if ("password" in value && typeof newData.value !== "string")
-      return "Invalid password";
+      throw "Invalid password";
     if (
       "email" in value &&
       !/^[\w.+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.email)
     )
-      return "Invalid email";
+      throw "Invalid email";
     return true;
   });
 };
-
 
 const register = async (data) => {
   const { fullName, email, password } = data;
@@ -30,8 +29,6 @@ const register = async (data) => {
   await userController.createUser(data);
   return "The user has been registered successfully";
 };
-
-
 
 const login = async (data) => {
   try {
@@ -54,10 +51,15 @@ const login = async (data) => {
   }
 }
 
+const changePassword = async (email, password) => {
+  try {
+    userController.update(email, { password });
+  } catch (error) {
 
+  }
+}
 
-
-module.exports = { register, login }
+module.exports = { register, login, changePassword }
 
 
 
