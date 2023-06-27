@@ -33,12 +33,12 @@ const validateUserData = (newData) => {
 const register = async (data)=> {
   const { fullName, email, password } = data;
   validateUserData([fullName, email, password])
-  const emailProper = await userController.readUser({ email: email });
+  const emailProper = await userController.readOne({ email: email });
   if (emailProper) {
     throw { code: 400, msg: "The user already exists" };
   }
   data.password = bcrypt.hashSync(data.password, SALT_ROUNDS);
-  await userController.createUser(data);
+  await userController.create(data);
   return "The user has been registered successfully";
 };
 
@@ -49,7 +49,7 @@ const login = async (data) => {
     if (!data.email) {
       throw { code: 400, msg: "email not found" };
     }
-    const user = await userController.readUser({ email: data.email }, "+password");
+    const user = await userController.readOne({ email: data.email }, "+password");
   
     if (!user) {
       throw { code: 400, msg: "user not found" };
@@ -57,7 +57,7 @@ const login = async (data) => {
     if (!bcrypt.compareSync(data.password, user.password)) {
       throw { code: 400, msg: "something incorrect" };
     }
-    await userController.updateUserByEmail(user.email, { lastLogin: new Date() }); // update last login
+    await userController.update(user.email, { lastLogin: new Date() }); // update last login
     const token = await auth.createToken({ email: user.email }); // create new token
     return token; // return token
   } catch (error) {

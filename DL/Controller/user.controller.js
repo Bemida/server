@@ -13,8 +13,8 @@ async function update(email, data) {
     return await userModel.updateOne(email, { ...data })
 }
 async function del(){
-    return await templateModel.updateOne()
+    return await templateModel.update(email, { isActive: false })
 
 }
 
-module.exports={create,read,update,del}
+module.exports={create,readOne,readMany,update, del}
