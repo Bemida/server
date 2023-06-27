@@ -1,4 +1,4 @@
-const userModel = require('../Model/template.model')
+const userModel = require('../Model/user.model')
 
 async function create(data) {
     return await userModel.create(...data)
