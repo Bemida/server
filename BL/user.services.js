@@ -12,7 +12,6 @@ async function sampleFunction() {
   //for example:  let sample = await templateController.readOne({something:something})
   // return sample
 }
-// test
 module.exports = { sampleFunction }
 
 
