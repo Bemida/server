@@ -4,7 +4,7 @@
 
 //Pull the needed parts:
 
-const {createLogger, transports, format} = require ('winston')
+const { createLogger, transports, format } = require('winston')
 
 //create logging function:
 
@@ -16,7 +16,7 @@ const templateLogger = createLogger({
             format: format.combine(format.timestamp(), format.json())
         }),
         new transports.File({
-            filename:'templateError.log',
+            filename: 'templateError.log',
             level: 'error',
             format: format.combine(format.timestamp(), format.json())
 
@@ -24,10 +24,10 @@ const templateLogger = createLogger({
     ]
 })
 
-module.exports = {templateLogger}
+module.exports = { templateLogger }
 
 //You will need to import this file to the Controller
-//Once imported, you'll see 2 new files appear that store your logs 
+//Once imported, you'll see 2 new files appear that store your logs
 //Here is the syntax to import:
 // const logger = require ('../../Logger/template.logger')
 // logger.templateLogger.log()

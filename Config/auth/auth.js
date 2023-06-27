@@ -7,7 +7,7 @@ async function createToken(data) {
 async function verify(req, res, next) {
     try {
         const token = req.headers.authorization.split("Bearer ")[1]
-         email = jwt.verify(token, process.env.SECRET).email
+        jwt.verify(token, process.env.SECRET)
         next()
     }
     catch (err) {
