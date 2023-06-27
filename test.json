@@ -1,0 +1,54 @@
+{
+    "user": "yehuda",
+    "status": "confirmed",
+    "shipping": "express",
+    "stages": [
+      {
+        "stage": "1",
+        "furniture": "closet",
+        "styling": [
+          {
+            "interior": {
+              "color": "white",
+              "shelves": {
+                "amount": "1",
+                "position": "center"
+              },
+              "hangingRod": {
+                "amount": "2",
+                "position": "center"
+              },
+              "drawers": "3",
+              "acessories": {
+                "drawerHandles": {
+                  "itemNumber": "123",
+                  "color": "black",
+                  "style": "modern",
+                  "img": "noimage"
+                }
+              }
+            }
+          },
+          {
+            "exterior": {
+              "material": "wood",
+              "doors": "2",
+              "size": { "height": "150", "width": "200", "depth": "60" },
+              "color": "white",
+              "handles": {
+                "itemNumber": "1111111",
+                "color": "green",
+                "style": "nice",
+                "img": "🪵"
+              },
+              "base": "legs"
+            }
+          }
+        ],
+        "items": []
+      }
+    ],
+    "total": "500",
+    "isActive": true
+  }
+  

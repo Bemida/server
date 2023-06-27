@@ -1,6 +1,6 @@
 const orderController = require ('../DL/Controller/order.controller')
 
-const auth = require('../Config/auth/auth')
+// const auth = require('../Config/auth/auth')
 // const bcrypt = require ('bcrypt')
 
 async function getOrder (orderId){
@@ -9,6 +9,7 @@ async function getOrder (orderId){
 }
 
 async function addOrder (data){
+  console.log (data)
   if (!data) throw "missing data"
   const order = await orderController.create(data)
   return order
