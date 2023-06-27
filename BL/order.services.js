@@ -18,9 +18,9 @@ async function addOrder (data){
   return order
 }
 
-async function updateOrder (orderId){
+async function updateOrder (orderId,data){
   if (!orderId) throw "missing order id for the search"
-  let order = await orderController.update({_id:orderId})
+  let order = await orderController.update({_id:orderId},data)
   return order
 }
 
