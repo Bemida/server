@@ -15,5 +15,4 @@ async function update(email, data) {
 async function del(email) {
     return await userModel.updateOne(email, { isActive: false })
 }
-// test
 module.exports = { create, readOne, readMany, update, del }
