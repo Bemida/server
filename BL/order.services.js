@@ -4,13 +4,16 @@ const orderController = require ('../DL/Controller/order.controller')
 // const bcrypt = require ('bcrypt')
 
 async function getOrder (orderId){
+  if (!orderId) throw "missing order id for the search"
   let order = await orderController.readOne({_id:orderId})
   return order
 }
 
 async function addOrder (data){
-  console.log (data)
   if (!data) throw "missing data"
+  if (!data.exteriorStyle.material) throw "Please select material"
+  if (!data.exteriorStyle.size) throw "Please select size"
+  if (!data.exteriorStyle.color) throw "Please select color"
   const order = await orderController.create(data)
   return order
 }
