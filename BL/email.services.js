@@ -11,12 +11,13 @@ let trensporter= nodemailer.createTransport({
 })
 
 //need email address, subject=title of the email, html=component with all data end css
-async function sendOrderEmail(email,subject,html){
+async function sendOrderEmail({email,title,html,text}){
     const mailOptions={
         from:"yosef74526@gmail.com",
         to:email,
-        subject:subject,
-        html:html
+        subject:title,
+        html:html,
+        text:text
     }
     return trensporter.sendMail(mailOptions,(err,info)=>{
             if(err){console.log(err)}
