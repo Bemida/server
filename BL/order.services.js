@@ -25,6 +25,17 @@ async function updateOrder (orderId,data){
   return order
 }
 
+
+
+// function getFullPrice(order) {
+//     // let r = neri()
+//     // map neri to yehuda()
+//     // yehuda()
+//     //yonatanKant()
+//     // labor()
+//     return result  
+// }
+
 module.exports = {getOrder,addOrder,updateOrder}
 
 

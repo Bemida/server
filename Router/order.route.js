@@ -14,6 +14,12 @@ router.get ("/:id", async (req,res)=>{
     }
 })
 
+// router.post('/price',async (req,res)=>{
+//     req.body.order
+
+//     orderServices.getFullPrice(req.body.order)
+// }
+
 router.post('/addorder',async (req,res)=>{
     try{
         const order = await orderServices.addOrder(req.body)
