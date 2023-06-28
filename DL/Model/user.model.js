@@ -33,10 +33,17 @@ const userSchema = new mongoose.Schema({
         enum: ["user", "admin"],
         default: "user",
     },
+    PasswordVerification: {
+        type: String,
+    },
+    numberOfAttempts: {
+        type: Number,
+    },
     isActive: {
         type: Boolean,
         default: true,
     }
+    
 });
 const userModel = mongoose.model("user", userSchema);
 module.exports = userModel;

@@ -4,6 +4,7 @@ async function createToken(data) {
     return jwt.sign(data, process.env.SECRET, { expiresIn: "2m" })
 }
 
+
 async function verify(req, res, next) {
     try {
         const token = req.headers.authorization.split("Bearer ")[1]
