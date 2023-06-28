@@ -1,32 +1,16 @@
 const jwt = require("jsonwebtoken");
-const create = (data, secretName, expireTime) => {
-  jwt.sign(data, secretName, { expiresIn: expireTime });
-};
-const verify = (req, secretName) => {
+
+async function createToken(data) {
+  return jwt.sign(data, process.env.SECRET, { expiresIn: "2m" });
+}
+
+async function verify(req, res, next) {
   try {
     const token = req.headers.authorization.split("Bearer ")[1];
-    jwt.verify(token, secretName);
+    jwt.verify(token, process.env.SECRET);
+    next();
   } catch (err) {
     res.sendStatus(401);
   }
-};
-const createLoginToken = async (data) => {
-  return create(data, process.env.LOGIN_SECRET, "2M");
-};
-const verifyLoginToken = async (req, res, next) => {
-  verify(req, process.env.LOGIN_SECRET);
-  next();
-};
-const createTokenForPasswordChange = async (data) => {
-  return create(data, process.env.PASSWORD_VERIFICATION, "2M");
-};
-const verifyCreateTokenForPasswordChange = async (req, res, next) => {
-  verify(req, process.env.PASSWORD_VERIFICATION);
-  next();
-};
-module.exports = {
-  createLoginToken,
-  verifyLoginToken,
-  createTokenForPasswordChange,
-  verifyCreateTokenForPasswordChange,
-};
+}
+module.exports = { createToken, verify };
