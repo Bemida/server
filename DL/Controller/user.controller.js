@@ -16,4 +16,4 @@ async function del() {
     return await userModel.updateOne(email, { isActive: false })
 }
 
-module.exports = { create, readOne, readMany, update, del }
+module.exports={create,readOne,readMany,update,del}

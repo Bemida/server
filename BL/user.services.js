@@ -3,63 +3,62 @@ const userController = require('../DL/Controller/user.controller'),
   bcrypt = require('bcrypt'),
   SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
 
-const validateUserData = (newData) => {
-  newData.foreach((value) => {
-    if ("fullName" in value && typeof newData.value !== "string")
-      throw "Invalid name";
-    if ("password" in value && typeof newData.value !== "string")
-      throw "Invalid password";
-    if (
-      "email" in value &&
-      !/^[\w.+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.email)
-    )
-      throw "Invalid email";
-    return true;
-  });
+const validateUserData = (data) => {
+  if (typeof data?.fullName !== "string")
+    throw "Invalid name";
+  if (typeof data?.password !== "string")
+    throw "Invalid password";
+  if (
+    typeof data?.email !== "string" && !/^[\w.+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(data?.email)
+  )
+    throw "Invalid email";
+  return true;
 };
 
 const register = async (data) => {
-  const { fullName, email, password } = data;
-  validateUserData([fullName, email, password])
-  const emailProper = await userController.readUser({ email: email });
+  validateUserData(data)
+  const emailProper = await userController.readOne({ email: data.email });
   if (emailProper) {
-    throw { code: 400, msg: "The user already exists" };
+    throw { code: 401, msg: "The user already exists" };
   }
   data.password = bcrypt.hashSync(data.password, SALT_ROUNDS);
-  await userController.createUser(data);
+  await userController.create(data);
   return "The user has been registered successfully";
 };
 
 const login = async (data) => {
   try {
     if (!data.email) {
-      throw { code: 400, msg: "email not found" };
+      throw { code: 401, msg: "email not found" };
     }
     const user = await userController.readUser({ email: data.email }, "+password");
-
     if (!user) {
-      throw { code: 400, msg: "user not found" };
+      throw { code: 401, msg: "user not found" };
     }
     if (!bcrypt.compareSync(data.password, user.password)) {
-      throw { code: 400, msg: "something incorrect" };
+      throw { code: 401, msg: "something incorrect" };
     }
-    await userController.updateUserByEmail(user.email, { lastLogin: new Date() }); // update last login
-    const token = await auth.createToken({ email: user.email }); // create new token
-    return token; // return token
+    await userController.update(user.email, { lastConnectedDate: new Date() }); // update last login
+    const token = await auth.createToken({ email: user.email, id: user._id }); // create new token
+    return { token, fullName: user.fullName, email: user.email }; // return token
   } catch (error) {
     throw { code: 500, msg: "Internal server error" };
   }
 }
 
-const changePassword = async (email, password) => {
-  try {
-    userController.update(email, { password });
-  } catch (error) {
-
-  }
+async function getUser(filter) {
+  return await userController.readOne(filter);
 }
 
-module.exports = { register, login, changePassword }
+async function getAllUsers(filter) {
+  return await userController.readMany(filter);
+}
+
+async function changePassword(data) {
+  return await userController.update({ email: data.email, password: data.password });
+}
+
+module.exports = { register, login, getUser, getAllUsers, changePassword }
 
 
 
