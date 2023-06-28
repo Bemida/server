@@ -5,7 +5,7 @@ const nodemailer= require('nodemailer')
 let trensporter= nodemailer.createTransport({
     service:"gmail",
     auth:{
-        user:"yosef74526@gmail.com",
+        user:"bmida20@gmail.com",
         pass:process.env.EMAIL_PASS
     }
 })
@@ -13,10 +13,10 @@ let trensporter= nodemailer.createTransport({
 //need email address, subject=title of the email, html=component with all data end css
 async function sendOrderEmail(email,subject,html){
     const mailOptions={
-        from:"yosef74526@gmail.com",
-        to:email,
-        subject:subject,
-        html:html
+        from: "bmida20@gmail.com",
+        to: email,
+        subject: subject,
+        html: html
     }
     return trensporter.sendMail(mailOptions,(err,info)=>{
             if(err){console.log(err)}

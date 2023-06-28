@@ -31,7 +31,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/login", auth.verifyLoginToken(), async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const result = await userServices.login(req.body);
     res.send(result);
@@ -40,27 +40,26 @@ router.post("/login", auth.verifyLoginToken(), async (req, res) => {
   }
 });
 
-// router.put(
-//   "/changepassword",
-//   auth.createTokenForPasswordChange(), // send email
-//   async (req, res) => {
-//     const data = req.body;
-//     try {
-//     } catch (error) {
-//       res.status(error.code).send(error.msg);
-//     }
-//   }
-// );
+router.put("/changepassword", async (req, res) => {
+    try {
+        const result = await userServices.createTokenForPasswordReset(req.body);
+        console.log(result);
+        res.send(result)
+      } catch (error) {
+        res.status(error.code).send(error.msg);
+      }
+    }
+  );
 
-// router.post(
-//   "/detectingpasswordchange",
-//   auth.verifyCreateTokenForPasswordChange(),
-//     async (req, res) => {
-//         try {
-//             const result = await userServices. // make function
-//         } catch (error) {
-//             res.status(error.code).send(error.msg);
-//         }
-//     })
+  
+
+router.post("/detectingpasswordchange",auth.verifyTokenForPasswordChange, async (req, res) => {
+        try {
+            const result = await userServices.getPasswordVerification(req.body)
+            res.send(result);
+        } catch (error) {
+            res.status(error.code).send(error.msg);
+        }
+    })
 
 module.exports = router;
