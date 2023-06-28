@@ -1,26 +1,31 @@
-const userController = require('../DL/Controller/user.controller'),
-  auth = require('../Config/auth/auth'),
-  bcrypt = require('bcrypt'),
+const userController = require("../DL/Controller/user.controller"),
+  auth = require("../Config/auth/auth"),
+  bcrypt = require("bcrypt"),
   SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
 
 const validateUserData = (data) => {
   if (typeof data?.fullName !== "string")
-    throw "Invalid name";
-  if (typeof data?.password !== "string")
-    throw "Invalid password";
+    throw { msg: "Invalid name", code: 401 };
   if (
-    typeof data?.email !== "string" && !/^[\w.+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(data?.email)
+    typeof data?.email !== "string" &&
+    !/^[\w.+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(data?.email)
   )
-    throw "Invalid email";
+    throw { msg: "Invalid email", code: 401 };
+  if (typeof data?.phoneNumber !== "number")
+    throw { msg: "Invalid phone number", code: 401 };
+  if (typeof data?.password !== "string")
+    throw { msg: "Invalid password", code: 401 };
+  if (typeof data?.address !== "string")
+    throw { msg: "Invalid address", code: 401 };
   return true;
 };
 
 const register = async (data) => {
-  validateUserData(data)
-  const emailProper = await userController.readOne({ email: data.email });
-  if (emailProper) {
-    throw { code: 401, msg: "The user already exists" };
-  }
+  validateUserData(data);
+  console.log("email...");
+  const emailExists = await userController.readOne({ email: data.email });
+  console.log(emailExists);
+  if (emailExists) throw { code: 401, msg: "The user already exists" };
   data.password = bcrypt.hashSync(data.password, SALT_ROUNDS);
   await userController.create(data);
   return "The user has been registered successfully";
@@ -28,40 +33,47 @@ const register = async (data) => {
 
 const login = async (data) => {
   try {
-    if (!data.email) {
-      throw { code: 401, msg: "email not found" };
-    }
-    const user = await userController.readUser({ email: data.email }, "+password");
-    if (!user) {
-      throw { code: 401, msg: "user not found" };
-    }
-    if (!bcrypt.compareSync(data.password, user.password)) {
+    if (!data.email) throw { code: 401, msg: "email not found" };
+    const user = await userController.readUser(
+      { email: data.email },
+      "+password"
+    );
+    if (!user) throw { code: 401, msg: "user not found" };
+    if (!bcrypt.compareSync(data.password, user.password))
       throw { code: 401, msg: "something incorrect" };
-    }
     await userController.update(user.email, { lastConnectedDate: new Date() }); // update last login
     const token = await auth.createToken({ email: user.email, id: user._id }); // create new token
     return { token, fullName: user.fullName, email: user.email }; // return token
   } catch (error) {
     throw { code: 500, msg: "Internal server error" };
   }
-}
+};
 
 async function getUser(filter) {
+  validateUserData(filter);
   return await userController.readOne(filter);
 }
 
-async function getAllUsers(filter) {
+async function getAllUsers(filter = {}) {
+  validateUserData(filter);
   return await userController.readMany(filter);
 }
 
 async function changePassword(data) {
-  return await userController.update({ email: data.email, password: data.password });
+  validateUserData(filter);
+  return await userController.update({
+    email: data.email,
+    password: data.password,
+  });
 }
 
-module.exports = { register, login, getUser, getAllUsers, changePassword }
+const emailToChangePassword = async (data) => {
+  const result = await sendOrderEmail(
+    data.email,
+    "change password",
+    data.html(data.token)
+  );
+};
+async function getPasswordVerification(data) {}
 
-
-
-
-
-
+module.exports = { register, login, getUser, getAllUsers, changePassword };
