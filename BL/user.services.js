@@ -22,14 +22,19 @@ const validateUserData = (data) => {
 };
 
 const register = async (data) => {
-  validateUserData(data);
-  console.log("email...");
-  const emailExists = await userController.readOne({ email: data.email });
-  console.log(emailExists);
-  if (emailExists) throw { code: 401, msg: "The user already exists" };
-  data.password = bcrypt.hashSync(data.password, SALT_ROUNDS);
-  await userController.create(data);
-  return "The user has been registered successfully";
+  try {
+    validateUserData(data);
+    console.log("email...");
+    const emailExists = await userController.readOne({ email: data.email });
+    console.log(emailExists);
+    if (emailExists) throw { code: 401, msg: "The user already exists" };
+    data.password = bcrypt.hashSync(data.password, SALT_ROUNDS);
+    await userController.create(data);
+    return "The user has been registered successfully";
+  } catch (error) {
+    throw { code: 401, msg: "Internal server error" };
+  }
+
 };
 
 const login = async (data) => {
@@ -51,37 +56,49 @@ const createTokenForPasswordReset = async (data) => {
   try {
     validateUserData(data);
     const user = await userController.readOne({ email: data.email });
-    if (!user) throw { code: 400, msg: "user not found" };
+    if (!user) throw { code: 401, msg: "user not found" };
     const token = await auth.createTokenForPasswordChange({ email: user.email, id: user._id, });
-    return { token, fullName: user.fullName, email: user.email, };
+    const result = await sendOrderEmail(
+      user.email,
+      "Change password",
+      data.html(data.token)
+    );
+    return result;
   } catch (error) {
-    throw { code: 500, msg: "Internal server error" };
+    throw { code: 401, msg: "Internal server error" };
   }
 };
 
-async function getUser(filter) {
-  validateUserData(filter);
-  return await userController.readOne(filter);
+const getUser = async (filter) => {
+  try {
+    validateUserData(filter);
+    return await userController.readOne(filter);
+  } catch (error) {
+    throw { code: 401, msg: "Internal server error" };
+  }
+
 }
 
-async function getAllUsers(filter = {}) {
-  validateUserData(filter);
-  return await userController.readMany(filter);
+const getAllUsers = async (filter = {}) => {
+  try {
+    validateUserData(filter);
+    return await userController.readMany(filter);
+  } catch (error) {
+    throw { code: 401, msg: "Internal server error" };
+  }
+
 }
 
-const sendEmailToChangePassword = async (data) => {
-  const result = await sendOrderEmail(
-    data.email,
-    "change password",
-    data.html(data.token)
-  );
-};
-async function getPasswordVerification(data) {
-  validateUserData(filter);
-  return await userController.update({
-    email: data.email,
-    password: data.password,
-  });
+const getPasswordVerification = async (data) => {
+  try {
+    validateUserData(data);
+    data.password = bcrypt.hashSync(data.password, SALT_ROUNDS);
+    await userController.update({ email: data.email, password: data.password });
+    return "Password changed successfully";
+  } catch (error) {
+    throw { code: 401, msg: "Internal server error" };
+  }
+
 }
 
-module.exports = { register, login, getUser, getAllUsers, sendEmailToChangePassword, getPasswordVerification, createTokenForPasswordReset };
+module.exports = { register, login, getUser, getAllUsers, getPasswordVerification, createTokenForPasswordReset };

@@ -40,8 +40,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.put(
-  "/changepassword",
+router.put("/changepassword",
   async (req, res) => {
     try {
       const result = await userServices.createTokenForPasswordReset(req.body);
@@ -53,12 +52,11 @@ router.put(
 );
 
 router.post(
-  "/detectingpasswordchange",
-  auth.verifyCreateTokenForPasswordChange,
+  "/detectingpasswordchange", auth.verifyTokenForPasswordChange,
   async (req, res) => {
     try {
       const result = await userServices.getPasswordVerification(req.body)
-      res.status(result);
+      res.send(result);
     } catch (error) {
       res.status(error.code).send(error.msg);
     }

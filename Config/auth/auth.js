@@ -23,7 +23,7 @@ const verifyLoginToken = async (req, res, next) => {
 const createTokenForPasswordChange = async (data) => {
   return create(data, process.env.PASSWORD_VERIFICATION, "15m");
 };
-const verifyCreateTokenForPasswordChange = async (req, res, next) => {
+const verifyTokenForPasswordChange = async (req, res, next) => {
   verify(req, res, process.env.PASSWORD_VERIFICATION);
   next();
 };
@@ -31,5 +31,5 @@ module.exports = {
   createLoginToken,
   verifyLoginToken,
   createTokenForPasswordChange,
-  verifyCreateTokenForPasswordChange,
+  verifyTokenForPasswordChange,
 };
