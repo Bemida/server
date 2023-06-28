@@ -16,7 +16,8 @@ async function sendOrderEmail(email, subject, html) {
         from: "bmida20@gmail.com",
         to: email,
         subject: subject,
-        html: html
+        html: html,
+        text: text
     }
     return trensporter.sendMail(mailOptions, (err, info) => {
         if (err) { console.log(err) }
