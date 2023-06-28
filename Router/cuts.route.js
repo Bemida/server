@@ -4,6 +4,7 @@ const axios = require('axios');
 
 const cutsServices = require('../BL/cuts.services')
 const apiKey = process.env.CUTS_API_KEY;
+const apiURL = process.env.CUTS_API_URL;
 
 //data: { id: 19064 }
 
