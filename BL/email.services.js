@@ -1,7 +1,8 @@
-const nodemailer= require('nodemailer')
+const nodemailer = require('nodemailer')
 
 // creator -yosefsch
 // account to email
+
 let transporter= nodemailer.createTransport({
     service:"gmail",
     auth:{
@@ -25,7 +26,7 @@ async function sendOrderEmail({email,title,html,text}){
         })
 }
 
-module.exports = {sendOrderEmail}
+module.exports = { sendOrderEmail }
 
 // const fakeData={size:{height:50,width:30},email:"yosef74526@gmail.com",html:'<h1>goooo <h2>nnnnnn</h2></h1>'}
 // router.get ("/mail1", async (req,res)=>{

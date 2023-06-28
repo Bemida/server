@@ -2,10 +2,10 @@
 const express = require("express")
 const router = express.Router()
 
-
 router.use('/api/orders', require('../Router/order.route'))
-router.use ('/api/items', require ('../Router/items.route'))
-router.use ('/api/others', require ('../Router/others.route'))//creator:yosef sch
-router.use ('/api/cuts', require ('../Router/cuts.route'))//RotemR
+router.use('/api/items', require('../Router/items.route'))
+router.use('/api/others', require('../Router/others.route'))  //creator:yosef sch
+router.use('/api/users', require('../Router/user.route'))     // creator: David & Netanel
+router.use('/api/cuts', require('../Router/cuts.route'))//RotemR
 
 module.exports = router;
