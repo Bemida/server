@@ -64,8 +64,7 @@ const createTokenForPasswordReset = async (data) => {
   } catch (error) {
     throw { code: 500, msg: "Internal server error" };
   }
-};
-
+}
 
 async function getUser(filter) {
   return await userController.readOne(filter);
