@@ -1,7 +1,6 @@
 const express = require("express"),
   router = express.Router(),
   userServices = require("../BL/user.services"),
-  { sendOrderEmail } = require("../BL/email.services"),
   auth = require("../Config/auth/auth");
 
 router.get("/", async (req, res) => {

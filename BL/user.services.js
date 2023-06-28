@@ -1,5 +1,6 @@
 const userController = require("../DL/Controller/user.controller"),
   auth = require("../Config/auth/auth"),
+  { sendOrderEmail } = require("../BL/email.services"),
   bcrypt = require("bcrypt"),
   SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
 
@@ -33,7 +34,7 @@ const register = async (data) => {
 
 const login = async (data) => {
   try {
-    if (!data.email) throw { code: 401, msg: "email not found" };
+    validateUserData(data);
     const user = await userController.readUser(
       { email: data.email },
       "+password"
@@ -51,21 +52,11 @@ const login = async (data) => {
 
 const createTokenForPasswordReset = async (data) => {
   try {
-    if (!data.email) throw { code: 400, msg: "email not found" };
+    validateUserData(data);
     const user = await userController.readOne({ email: data.email });
     if (!user) throw { code: 400, msg: "user not found" };
-    const resetToken = //david function
-      await userController.update(user.email, { resetToken: resetToken }); //להוסיף בסכמה resetToken
-    const token = await auth.createToken({
-      email: user.email,
-      id: user._id,
-      resetToken: resetToken,
-    });
-    return {
-      token: token,
-      fullName: user.fullName,
-      email: user.email,
-    }; // return token
+    const token = await auth.createToken({ email: user.email, id: user._id, });
+    return { token, fullName: user.fullName, email: user.email, };
   } catch (error) {
     throw { code: 500, msg: "Internal server error" };
   }
@@ -89,7 +80,7 @@ async function changePassword(data) {
   });
 }
 
-const emailToChangePassword = async (data) => {
+const sendEmailToChangePassword = async (data) => {
   const result = await sendOrderEmail(
     data.email,
     "change password",
