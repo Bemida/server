@@ -7,6 +7,7 @@ const cutsSchema = new mongoose.Schema({
     stock: [
         {
             name: {
+                type : String,
                 default: "basic",
                 enum : ["basic", "Luxury", "Premium"]
             },
@@ -14,8 +15,9 @@ const cutsSchema = new mongoose.Schema({
             w: Number,
             t: Number,
             material: {
+                type :String,
                 default : "Pine plywood",
-                emum : ["Pine plywood", "Aak","Maple","MDF"]
+                emum : ["Pine plywood", "Oak","Maple","MDF"]
             },
             q: Number,
             cost: Number
@@ -28,6 +30,7 @@ const cutsSchema = new mongoose.Schema({
             w: Number,
             t: Number,
             material: {
+                type : String,
                 default : "Pine plywood",
                 emum : ["Pine plywood", "Aak","Maple","MDF"]
             },
