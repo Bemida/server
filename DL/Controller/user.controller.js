@@ -10,7 +10,7 @@ async function readMany(filter = {}) {
   return await userModel.find({ ...filter, isActive: true });
 }
 async function update(email, data) {
-  return await userModel.updateOne({ email }, { ...data });
+  return await userModel.updateOne(email, data);
 }
 async function del(email) {
   return await userModel.updateOne({ email }, { isActive: false });

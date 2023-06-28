@@ -24,7 +24,7 @@ const createTokenForPasswordChange = async (data) => {
   return create(data, process.env.PASSWORD_VERIFICATION, "15m");
 };
 const verifyTokenForPasswordChange = async (req, res, next) => {
-  verify(req, res, process.env.PASSWORD_VERIFICATION);
+  req.body.email = verify(req, res, process.env.PASSWORD_VERIFICATION).email
   next();
 };
 module.exports = {

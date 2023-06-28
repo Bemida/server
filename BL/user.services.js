@@ -58,12 +58,13 @@ const createTokenForPasswordReset = async (data) => {
     const user = await userController.readOne({ email: data.email });
     if (!user) throw { code: 401, msg: "user not found" };
     const token = await auth.createTokenForPasswordChange({ email: user.email, id: user._id, });
+    return token;
     const result = await sendOrderEmail(
       user.email,
       "Change password",
       data.html(data.token)
     );
-    return result;
+    return "The email was sent successfully";
   } catch (error) {
     throw { code: 401, msg: "Internal server error" };
   }
@@ -92,13 +93,15 @@ const getAllUsers = async (filter = {}) => {
 const getPasswordVerification = async (data) => {
   try {
     validateUserData(data);
+    if (data.password !== data.passwordVerification) throw {
+      msg: 'Password not the same as the password verification', code: 401
+    };
     data.password = bcrypt.hashSync(data.password, SALT_ROUNDS);
-    await userController.update({ email: data.email, password: data.password });
+    await userController.update({ email: data.email }, { password: data.password });
     return "Password changed successfully";
   } catch (error) {
     throw { code: 401, msg: "Internal server error" };
   }
-
 }
 
 module.exports = { register, login, getUser, getAllUsers, getPasswordVerification, createTokenForPasswordReset };
