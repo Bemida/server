@@ -1,8 +1,9 @@
-const nodemailer= require('nodemailer')
+const nodemailer = require('nodemailer')
 
 // creator -yosefsch
 // account to email
-let trensporter= nodemailer.createTransport({
+
+let transporter= nodemailer.createTransport({
     service:"gmail",
     auth:{
         user:"bmida20@gmail.com",
@@ -10,22 +11,29 @@ let trensporter= nodemailer.createTransport({
     }
 })
 
-//need email address, subject=title of the email, html=component with all data end css
-async function sendOrderEmail(email,subject,html){
+//need email address, title=title of the email, html=component with all data end css ,text=text or html
+async function sendOrderEmail({email,title,html,text}){
     const mailOptions={
+<<<<<<< HEAD
         from: "bmida20@gmail.com",
         to: email,
         subject: subject,
         html: html
+=======
+        from:"yosef74526@gmail.com",
+        to:email,
+        subject:title,
+        html:html,
+        text:text
+>>>>>>> 23e4d837c31ce6fe3d6f7a3269c57eb7f94fe6fc
     }
-    return trensporter.sendMail(mailOptions,(err,info)=>{
-            if(err){console.log(err)}
-            else{res.send("email send"+info.response)}
-            console.log("goog 2")
+    return transporter.sendMail(mailOptions,(err,info)=>{
+            if(err){throw err}
+            else{res.send("email send to -"+info.response)}
         })
 }
 
-module.exports = {sendOrderEmail}
+module.exports = { sendOrderEmail }
 
 // const fakeData={size:{height:50,width:30},email:"yosef74526@gmail.com",html:'<h1>goooo <h2>nnnnnn</h2></h1>'}
 // router.get ("/mail1", async (req,res)=>{

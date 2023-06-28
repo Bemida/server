@@ -1,0 +1,52 @@
+const schema = {
+  saw: {
+    bladeWidth: 'number', // The width / kerf of the blade.
+    cutType: 'enum', // The cut type. Allowed: guillotine┃efficiency┃beam
+    cutPreference: 'enum', // Required for guillotine & beam cutType. Allowed: l┃w
+    guillotineOptions: {
+      strategy: 'enum' // The guillotine cutting strategy. Allowed: stock┃time
+    },
+    efficiencyOptions: {
+      primaryCompression: 'enum' // The stacking preference for the parts. Allowed: y┃x
+    },
+    stackHeight: 'number' // For beam saws - the max stack height
+  },
+  stock: [
+    {
+      name: 'string', // The name of the stock.
+      l: 'number', // The length (longest side) of this stock.
+      w: 'number', // The width (shortest side) of this stock.
+      t: 'number', // The thickness of this stock, used for stock matching - https://cutlistevo.com/guide.html#stockmatching.
+      material: 'string', // A material reference, used for stock matching - https://cutlistevo.com/guide.html#stockmatching.
+      q: 'integer', // The quantity of this stock.
+      autoAdd: 'boolean', // Whether to automatically add more of this stock if required. Set q to 1 if used.
+      grain: 'enum', // Allowed: null┃l┃w
+      trim: {
+        x1: 'number', // The trim to apply to the x1 side.
+        x2: 'number', // The trim to apply to the x2 side.
+        y1: 'number', // The trim to apply to the y1 side.
+        y2: 'number' // The trim to apply to the y2 side.
+      },
+      allowExactFitShapes: 'boolean', // If trim is applied, should exact fit shapes be allowed on this stock.
+      type: 'enum', // The type of stock - MUST BE be the same value for all stock. Allowed: sheet┃linear
+      cost: 'number' // The raw material cost for this stock item
+    }
+  ],
+  parts: [
+    {
+      name: 'string', // The name of the part.
+      l: 'number', // The length (longest side) of this part.
+      w: 'number', // The width (shortest side) of this part.
+      t: 'number', // The thickness of this part, used for stock matching - https://cutlistevo.com/guide.html#stockmatching.
+      material: 'string', // A material reference, used for stock matching - https://cutlistevo.com/guide.html#stockmatching.
+      q: 'integer', // The quantity of this part.
+      banding: {
+        x1: 'boolean', // The banding to apply to the x1 side.
+        x2: 'boolean', // The banding to apply to the x2 side.
+        y1: 'boolean', // The banding to apply to the y1 side.
+        y2: 'boolean' // The banding to apply to the y2 side.
+      },
+      bandingType: {
+        x1: 'string', // The banding type for the x1 side.
+        x2: 'string', // The banding type for the x2 side.
+        y1: 'string', //
