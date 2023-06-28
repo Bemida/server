@@ -49,6 +49,28 @@ const login = async (data) => {
   }
 };
 
+const createTokenForPasswordReset = async (data) => {
+  try {
+    if (!data.email) throw { code: 400, msg: "email not found" };
+    const user = await userController.readOne({ email: data.email });
+    if (!user) throw { code: 400, msg: "user not found" };
+    const resetToken = //david function
+      await userController.update(user.email, { resetToken: resetToken }); //להוסיף בסכמה resetToken
+    const token = await auth.createToken({
+      email: user.email,
+      id: user._id,
+      resetToken: resetToken,
+    });
+    return {
+      token: token,
+      fullName: user.fullName,
+      email: user.email,
+    }; // return token
+  } catch (error) {
+    throw { code: 500, msg: "Internal server error" };
+  }
+};
+
 async function getUser(filter) {
   validateUserData(filter);
   return await userController.readOne(filter);
@@ -74,6 +96,6 @@ const emailToChangePassword = async (data) => {
     data.html(data.token)
   );
 };
-async function getPasswordVerification(data) {}
+async function getPasswordVerification(data) { }
 
 module.exports = { register, login, getUser, getAllUsers, changePassword };
