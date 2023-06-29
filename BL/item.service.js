@@ -43,9 +43,12 @@ async function addItem (data){
 }
 // async function getDrawerPrice(depth) {
   // const item = await itemController.readOne({ 'drawers.depth': depth })
-
+  async function addDrawers(data){
+    const drawres = await itemController.create(data)
+    return drawres
+  }
   async function getDrawerPrice(depth) {
-    const item = await itemModel.findOne({}, { drawers: 1 })
+    const item = await itemController.readOne({}, { drawers: 1 })
       .sort({ 'drawers.depth': 1 });
   
     if (item && item.drawers.length > 0) {
@@ -73,7 +76,7 @@ async function addItem (data){
   }
 
 
-module.exports = {addItem,getItemByBarcode,getAllItems,updateItem, getDrawerPrice}
+module.exports = {addItem,getItemByBarcode,getAllItems,updateItem, getDrawerPrice, addDrawers}
 
 // const item1 = {
 //   "name": "door handle",

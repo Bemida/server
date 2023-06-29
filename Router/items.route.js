@@ -18,6 +18,15 @@ router.get ("/allitems", async (req,res)=>{
         res.status(400).send(err)
     }
 })
+router.post("/adddrawer", async (req, res) => {
+    try{
+        const drawers = await itemServices.addDrawers(req.body)
+        res.send(drawers)
+    }
+    catch(err){
+        res.status(400).send(err)
+    }
+})
 
 router.get ("/barcode/:barcode", async (req,res)=>{
     try{
