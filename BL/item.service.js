@@ -41,8 +41,21 @@ async function addItem (data){
   item = await itemController.create(data)
   return item 
 }
-// async function getDrawerPrice(depth) {
-  // const item = await itemController.readOne({ 'drawers.depth': depth })
+async function getHandlesPrices(handleId, handlesQuantity) {
+  let totalPrice = 0;
+  const handle = await itemController.readOne({barcode: handleId})
+  const finalHandlesPrice = handle.price * handlesQuantity;
+  finalHandlesPrice && (totalPrice = finalHandlesPrice)
+  return totalPrice
+}
+async function getHaningRodPrice(hangingRod){
+  let totalPrice = 0
+  if(hangingRod) {
+    const {price} = await itemController.readOne({name: "hanging rod"})
+    price && (totalPrice += (price * hangingRod))
+  }
+  return totalPrice
+}
   async function addDrawers(data){
     const drawres = await itemController.create(data)
     return drawres
@@ -55,14 +68,14 @@ async function addItem (data){
     }
     else {
       const higherDepthDrawers = await itemController.read({ depth: { $gt: depth } })
-      //need to sort to insure we actually found the next depth, didnt do because somehow higherDepthDrawers is null
+      //need to sort to insure we actually found the next depth, didnt do it because somehow higherDepthDrawers is null
       drawersPrice = higherDepthDrawers[0].price
     }
     return (drawersPrice * drawersNumber)
     }
 
 
-module.exports = {addItem,getItemByBarcode,getAllItems,updateItem, getDrawerPrice, addDrawers}
+module.exports = {addItem,getItemByBarcode,getAllItems,updateItem, getDrawerPrice, addDrawers, getHandlesPrices, getHaningRodPrice}
 
 // const item1 = {
 //   "name": "door handle",
