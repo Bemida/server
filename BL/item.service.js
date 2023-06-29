@@ -47,33 +47,19 @@ async function addItem (data){
     const drawres = await itemController.create(data)
     return drawres
   }
-  async function getDrawerPrice(depth) {
-    const item = await itemController.readOne({}, { drawers: 1 })
-      .sort({ 'drawers.depth': 1 });
-  
-    if (item && item.drawers.length > 0) {
-      const drawers = item.drawers;
-      const higherDepthDrawers = drawers.filter(drawer => drawer.depth >= depth);
-  
-      if (higherDepthDrawers.length > 0) {
-        const closestDrawer = higherDepthDrawers.reduce((prevDrawer, currDrawer) => {
-          const prevDifference = prevDrawer.depth - depth;
-          const currDifference = currDrawer.depth - depth;
-          return (currDifference < prevDifference) ? currDrawer : prevDrawer;
-        });
-  
-        return closestDrawer.price;
-      }
-  
-      // If no higher depth drawers are found, return the price of the highest depth drawer
-      const highestDepthDrawer = drawers[drawers.length - 1];
-      return highestDepthDrawer.price;
+  async function getDrawerPrice(drawersNumber, depth) {
+    let drawersPrice;
+    const drawer = await itemController.readOne({ depth: depth })
+     if (drawer) {
+      drawersPrice =  drawer.price
     }
-  
-    // If no matching drawer is found,  handle it as per your requirement
-    // For example,  return a default price or throw an error.
-    return null;
-  }
+    else {
+      const higherDepthDrawers = await itemController.read({ depth: { $gt: depth } })
+      //need to sort to insure we actually found the next depth, didnt do because somehow higherDepthDrawers is null
+      drawersPrice = higherDepthDrawers[0].price
+    }
+    return (drawersPrice * drawersNumber)
+    }
 
 
 module.exports = {addItem,getItemByBarcode,getAllItems,updateItem, getDrawerPrice, addDrawers}

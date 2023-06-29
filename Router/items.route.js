@@ -1,7 +1,7 @@
 const express = require ('express')
 const router = express.Router()
 
-const itemServices = require ('../Bl/item.service')
+const itemServices = require ('../BL/item.service')
 const { it } = require('node:test')
 
 //Sample function using GET:

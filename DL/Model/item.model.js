@@ -3,11 +3,10 @@ const mongoose = require('mongoose')
 const itemSchema = new mongoose.Schema({
     name: {
         type: String,
-        // required: true
+        required: true
     },
     price: {
         type: Number,
-        // required: true
     },
     img: {
         type: String,
@@ -21,8 +20,8 @@ const itemSchema = new mongoose.Schema({
     },
     barcode: {
         type:Number,
-        // required:true,
-        // unique: true
+        required:true,
+        unique: true
     }
 })
 
