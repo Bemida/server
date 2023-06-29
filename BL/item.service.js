@@ -20,6 +20,14 @@ async function getItemByBarcode (barcode){
   let item = await itemController.readOne({barcode:barcode})
   return item
 }
+
+async function getItemsByType (type){
+  if(!type) throw "type data missing"
+  let items = await itemController.read({type:type})
+  if (!items) throw "type mot exist"
+  return items
+}
+
 async function updateItem (barcode,data){
   console.log(barcode + data)
   if (!barcode) throw "Missing barcode"
@@ -42,7 +50,7 @@ async function addItem (data){
   return item 
 }
 
-module.exports = {addItem,getItemByBarcode,getAllItems,updateItem}
+module.exports = {addItem,getItemByBarcode,getItemsByType,getAllItems,updateItem}
 
 // const item1 = {
 //   "name": "door handle",
