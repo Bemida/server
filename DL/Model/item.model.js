@@ -12,9 +12,14 @@ const itemSchema = new mongoose.Schema({
     img: {
         type: String,
     },
-    drawerDepth: {
-        type: number
-    },
+    drawers: [{
+        price: {
+            type:Number
+        },
+        depth: {
+            type: Number
+        }
+    }],
     stock: {
         type : Number,
         default : 1

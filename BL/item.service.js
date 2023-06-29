@@ -41,12 +41,39 @@ async function addItem (data){
   item = await itemController.create(data)
   return item 
 }
-async function getItem(filter) {
-  const item = await itemController.readOne(filter)
-  return item 
-}
+// async function getDrawerPrice(depth) {
+  // const item = await itemController.readOne({ 'drawers.depth': depth })
 
-module.exports = {addItem,getItemByBarcode,getAllItems,updateItem, getItem}
+  async function getDrawerPrice(depth) {
+    const item = await itemModel.findOne({}, { drawers: 1 })
+      .sort({ 'drawers.depth': 1 });
+  
+    if (item && item.drawers.length > 0) {
+      const drawers = item.drawers;
+      const higherDepthDrawers = drawers.filter(drawer => drawer.depth >= depth);
+  
+      if (higherDepthDrawers.length > 0) {
+        const closestDrawer = higherDepthDrawers.reduce((prevDrawer, currDrawer) => {
+          const prevDifference = prevDrawer.depth - depth;
+          const currDifference = currDrawer.depth - depth;
+          return (currDifference < prevDifference) ? currDrawer : prevDrawer;
+        });
+  
+        return closestDrawer.price;
+      }
+  
+      // If no higher depth drawers are found, return the price of the highest depth drawer
+      const highestDepthDrawer = drawers[drawers.length - 1];
+      return highestDepthDrawer.price;
+    }
+  
+    // If no matching drawer is found,  handle it as per your requirement
+    // For example,  return a default price or throw an error.
+    return null;
+  }
+
+
+module.exports = {addItem,getItemByBarcode,getAllItems,updateItem, getDrawerPrice}
 
 // const item1 = {
 //   "name": "door handle",
