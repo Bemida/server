@@ -41,8 +41,12 @@ async function addItem (data){
   item = await itemController.create(data)
   return item 
 }
+async function getItem(filter) {
+  const item = await itemController.readOne(filter)
+  return item 
+}
 
-module.exports = {addItem,getItemByBarcode,getAllItems,updateItem}
+module.exports = {addItem,getItemByBarcode,getAllItems,updateItem, getItem}
 
 // const item1 = {
 //   "name": "door handle",

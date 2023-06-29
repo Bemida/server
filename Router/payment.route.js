@@ -6,7 +6,7 @@ const { log } = require('console')
 router.post("/", async (req, res) => {
     try{
         const order = req.body
-        const finalPayment = "ddd"
+        const finalPayment = "4500"
         console.log(order)
         res.send(finalPayment)
     }
