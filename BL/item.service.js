@@ -43,9 +43,11 @@ async function addItem (data){
 }
 async function getHandlesPrices(handleId, handlesQuantity) {
   let totalPrice = 0;
-  const handle = await itemController.readOne({barcode: handleId})
-  const finalHandlesPrice = handle.price * handlesQuantity;
-  finalHandlesPrice && (totalPrice = finalHandlesPrice)
+  if(handleId){
+    const handle = await itemController.readOne({barcode: handleId})
+    const finalHandlesPrice = handle.price * handlesQuantity;
+    finalHandlesPrice && (totalPrice = finalHandlesPrice)
+  }
   return totalPrice
 }
 async function getHaningRodPrice(hangingRod){

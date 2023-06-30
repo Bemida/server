@@ -7,5 +7,6 @@ router.use ('/api/items', require ('../Router/items.route'))
 router.use ('/api/others', require ('../Router/others.route'))//creator:yosef sch
 router.use('/api/payment', require('../Router/payment.route'))
 router.use ('/api/cuts', require ('../Router/cuts.route'))//RotemR
+router.use("/api/hardware", require("../Router/hardware.route"))
 
 module.exports = router;
