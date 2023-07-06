@@ -6,6 +6,12 @@ const itemSchema = new mongoose.Schema({
         required: true
         
     },
+    type : {
+        type : String,
+        required :true,
+        enum : ["ידיות", "פלטות עץ"],
+        default : "ידיות"
+    },
     price: {
         type: Number,
         required: true
