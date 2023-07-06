@@ -3,27 +3,27 @@ const nodemailer = require('nodemailer')
 // creator -yosefsch
 // account to email
 
-let transporter= nodemailer.createTransport({
-    service:"gmail",
-    auth:{
-        user:"yosef74526@gmail.com",
-        pass:process.env.EMAIL_PASS
+let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL_COMPANY,
+        pass: process.env.EMAIL_PASSWORD
     }
 })
 
 //need email address, title=title of the email, html=component with all data end css ,text=text or html
-async function sendOrderEmail({email,title,html,text}){
-    const mailOptions={
-        from:"yosef74526@gmail.com",
-        to:email,
-        subject:title,
-        html:html,
-        text:text
+async function sendOrderEmail({ email, title, html, text }) {
+    const mailOptions = {
+        from: process.env.EMAIL_COMPANY,
+        to: email,
+        subject: title,
+        html: html,
+        text: text
     }
-    return transporter.sendMail(mailOptions,(err,info)=>{
-            if(err){throw err}
-            else{res.send("email send to -"+info.response)}
-        })
+    return transporter.sendMail(mailOptions, (err, info) => {
+        if (err) { throw err }
+        else { res.send("email send to -" + info.response) }
+    })
 }
 
 module.exports = { sendOrderEmail }

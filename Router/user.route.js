@@ -23,7 +23,6 @@ router.get("/user", async (req, res) => {
 
 router.post("/register", async (req, res) => {
   try {
-    console.log(req.body);
     const result = await userServices.register(req.body);
     res.send(result);
   } catch (error) {
