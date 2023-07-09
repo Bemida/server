@@ -4,7 +4,6 @@ const itemSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
-        
     },
     type : {
         type : String,
@@ -14,11 +13,12 @@ const itemSchema = new mongoose.Schema({
     },
     price: {
         type: Number,
-        required: true
     },
     img: {
         type: String,
-        required: true
+    },
+    depth: {
+        type: Number
     },
     stock: {
         type : Number,
