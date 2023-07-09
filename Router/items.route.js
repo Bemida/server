@@ -40,6 +40,18 @@ router.get ("/barcode/:barcode", async (req,res)=>{
     }
 })
 
+router.get ("/type", async (req,res)=>{
+    try{
+        const item = await itemServices.getItemsByType(req.body.type)
+        res.send (item)
+        
+        
+    }
+    catch (err){
+        res.status(400).send(err)
+    }
+})
+
 router.post ("/additem", async (req,res)=>{
     try{
         
