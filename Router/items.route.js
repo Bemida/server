@@ -1,7 +1,7 @@
 const express = require ('express')
 const router = express.Router()
 
-const itemServices = require ('../Bl/item.service')
+const itemServices = require ('../BL/item.service')
 const { it } = require('node:test')
 
 //Sample function using GET:
@@ -18,10 +18,31 @@ router.get ("/allitems", async (req,res)=>{
         res.status(400).send(err)
     }
 })
+router.post("/adddrawer", async (req, res) => {
+    try{
+        const drawers = await itemServices.addDrawers(req.body)
+        res.send(drawers)
+    }
+    catch(err){
+        res.status(400).send(err)
+    }
+})
 
 router.get ("/barcode/:barcode", async (req,res)=>{
     try{
         const item = await itemServices.getItemByBarcode(req.params.barcode)
+        res.send (item)
+        
+        
+    }
+    catch (err){
+        res.status(400).send(err)
+    }
+})
+
+router.get ("/type", async (req,res)=>{
+    try{
+        const item = await itemServices.getItemsByType(req.body.type)
         res.send (item)
         
         

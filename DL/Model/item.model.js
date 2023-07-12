@@ -4,15 +4,21 @@ const itemSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
-        
+    },
+    type : {
+        type : String,
+        required :true,
+        enum : ["ידיות", "פלטות עץ"],
+        default : "ידיות"
     },
     price: {
         type: Number,
-        required: true
     },
     img: {
         type: String,
-        required: true
+    },
+    depth: {
+        type: Number
     },
     stock: {
         type : Number,

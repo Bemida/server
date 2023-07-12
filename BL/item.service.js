@@ -20,6 +20,14 @@ async function getItemByBarcode (barcode){
   let item = await itemController.readOne({barcode:barcode})
   return item
 }
+
+async function getItemsByType (type){
+  if(!type) throw "type data missing"
+  let items = await itemController.read({type:type})
+  if (!items) throw "type mot exist"
+  return items
+}
+
 async function updateItem (barcode,data){
   console.log(barcode + data)
   if (!barcode) throw "Missing barcode"
@@ -41,8 +49,43 @@ async function addItem (data){
   item = await itemController.create(data)
   return item 
 }
+async function getHandlesPrices(handleId, handlesQuantity) {
+  let totalPrice = 0;
+  if(handleId){
+    const handle = await itemController.readOne({barcode: handleId})
+    const finalHandlesPrice = handle.price * handlesQuantity;
+    finalHandlesPrice && (totalPrice = finalHandlesPrice)
+  }
+  return totalPrice
+}
+async function getHaningRodPrice(hangingRod){
+  let totalPrice = 0
+  if(hangingRod) {
+    const {price} = await itemController.readOne({name: "hanging rod"})
+    price && (totalPrice += (price * hangingRod))
+  }
+  return totalPrice
+}
+  async function addDrawers(data){
+    const drawres = await itemController.create(data)
+    return drawres
+  }
+  async function getDrawerPrice(drawersNumber, depth) {
+    let drawersPrice;
+    const drawer = await itemController.readOne({ depth: depth })
+     if (drawer) {
+      drawersPrice =  drawer.price
+    }
+    else {
+      const higherDepthDrawers = await itemController.read({ depth: { $gt: depth } })
+      //need to sort to insure we actually found the next depth, didnt do it because somehow higherDepthDrawers is null
+      drawersPrice = higherDepthDrawers[0].price
+    }
+    return (drawersPrice * drawersNumber)
+    }
 
-module.exports = {addItem,getItemByBarcode,getAllItems,updateItem}
+module.exports = {addItem,getItemByBarcode,getAllItems,updateItem, getDrawerPrice, addDrawers, getHandlesPrices, getHaningRodPrice}
+
 
 // const item1 = {
 //   "name": "door handle",

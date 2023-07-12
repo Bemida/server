@@ -58,11 +58,10 @@ const createTokenForPasswordReset = async (data) => {
     const user = await userController.readOne({ email: data.email });
     if (!user) throw { code: 401, msg: "user not found" };
     const token = await auth.createTokenForPasswordChange({ email: user.email, id: user._id, });
-    return token;
     const result = await sendOrderEmail(
       user.email,
-      "Change password",
-      data.html(data.token)
+      data.title,
+      body(token)
     );
     return "The email was sent successfully";
   } catch (error) {
